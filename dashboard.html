@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome to facebook, {{ current_user[0]["first_name"] }}!</h1>
+    <form action = "/posts" methods = "POST">
+        <textarea name = "content" id = "" cols="100" rows="10"></textarea>
+        <input type = "submit" name = "content" value = "submit">
+    </form>
+    {% for message in all_messages %}
+    <div>
+        <p>{{message.content}}</p>
+        <p>{{message.created_at}}</p>
+        {% if post.user_id == current_user[0].id %}
+        <a href="{{ url_for('logout') }}"><button value = "again" type = 'button'>LOGOUT</button></a>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+</body>
+</html>
