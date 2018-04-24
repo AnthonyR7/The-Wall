@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome to facebook, {{ current_user[0]["first_name"] }}!</h1>
+    <form action = "/posts" method = "POST">
+        <textarea name = "content" id = "" cols="100" rows="10"></textarea>
+        <input type = "submit" name = "content" value = "submit">
+    </form>
+    {% for message in all_messages %}
+    <div>
+        <p>{{message.message}} - {{message.first_name}}</p>
+        <p>{{message.created_at}}</p>
+        {% if message.user_id == current_user[0].id %}
+        <a href="{{ url_for('logout') }}"><button value = "again" type = 'button'>LOGOUT</button></a>
+        {% endif %}
+        {% for comment in all_comments %}
+            <ul>
+                {% if comment.messages_id == messsage.id %}
+                <li>{{comment.comment}} - {{comment.first_name}}...{{comments.created_at}}</li>
+                {% endif %}
+            </ul>
+        {% endfor %}
+        <form action = "/comments/{{message.id}}" method="POST">
+        <textarea name = "comments" id = "" cols = "120" rows = "10" placeholder = "Whats your two cents about this post?"></textarea>
+        <input type = "submit" name = "spoken_words" value = "submit">
+        </form>
+    </div>
+    {% endfor %}
+    
+</body>
+</html>
